@@ -1,0 +1,75 @@
+- Script SQL:
+CREATE DATABASE IF NOT EXISTS tn_acessorios;
+USE tn_acessorios;
+
+CREATE TABLE Categoria (
+    id_categoria INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE Produto (
+    id_produto INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    descricao TEXT,
+    preco DECIMAL(10, 2) NOT NULL,
+    quantidade INT NOT NULL,
+    id_categoria INT NOT NULL,
+    FOREIGN KEY (id_categoria) REFERENCES Categoria(id_categoria)
+);
+
+CREATE TABLE Cliente (
+    id_cliente INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    telefone VARCHAR(15),
+    rua VARCHAR(100),
+    numero VARCHAR(10),
+    complemento VARCHAR(50),
+    bairro VARCHAR(50),
+    cidade VARCHAR(50),
+    estado CHAR(2),
+    cep VARCHAR(10)
+);
+
+CREATE TABLE Venda (
+    id_venda INT AUTO_INCREMENT PRIMARY KEY,
+    data_venda DATETIME NOT NULL,
+    forma_pagamento VARCHAR(50) NOT NULL,
+    id_cliente INT NOT NULL,
+    FOREIGN KEY (id_cliente) REFERENCES Cliente(id_cliente)
+);
+
+CREATE TABLE ItensVenda (
+    id_venda INT NOT NULL,
+    id_produto INT NOT NULL,
+    quantidade INT NOT NULL,
+    PRIMARY KEY (id_venda, id_produto),
+    FOREIGN KEY (id_venda) REFERENCES Venda(id_venda),
+    FOREIGN KEY (id_produto) REFERENCES Produto(id_produto)
+);
+
+- Consultar produtos vendidos em uma venda específica (ex.: Venda ID 1):
+SELECT 
+    p.nome AS Produto,
+    iv.quantidade AS Quantidade,
+    p.preco AS Preco_Unitario,
+    (iv.quantidade * p.preco) AS Total
+FROM ItensVenda iv
+JOIN Produto p ON iv.id_produto = p.id_produto
+WHERE iv.id_venda = 1;
+
+- Consultar o estoque atual dos produtos:
+SELECT 
+    nome AS Produto,
+    quantidade AS Estoque
+FROM Produto;
+
+- Consultar as vendas de um cliente específico (ex.: Cliente ID 1):
+SELECT 
+    v.id_venda AS Venda_ID,
+    v.data_venda AS Data,
+    v.forma_pagamento AS Pagamento,
+    c.nome AS Cliente
+FROM Venda v
+JOIN Cliente c ON v.id_cliente = c.id_cliente
+WHERE v.id_cliente = 1;
