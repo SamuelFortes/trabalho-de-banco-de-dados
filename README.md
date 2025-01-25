@@ -2,7 +2,7 @@
 
 ## Descrição do Projeto
 
-Este projeto consiste em um sistema de banco de dados para a loja virtual **TN Acessórios**, especializada na venda de acessórios femininos, como brincos, colares, pulseiras e joias. O objetivo é gerenciar o cadastro de produtos, clientes e vendas, garantindo um controle eficiente do estoque e das informações dos clientes.
+Este projeto faz parte da avaliação final da disciplina de banco de dados da UFPI (Universidade Federal do Piauí) e consiste em um sistema de banco de dados para a loja virtual **TN Acessórios** (Siga a loja no Instagram: `@tnacessorios2`), especializada na venda de acessórios femininos, como brincos, colares, pulseiras e joias. O objetivo é gerenciar o cadastro de produtos, clientes e vendas, garantindo um controle eficiente do estoque e das informações dos clientes.
 
 ## Estrutura do Banco de Dados
 
